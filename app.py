@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
-
 import os, datetime, re
-import requests
-import boto
-from unidecode import unidecode
-
-from flask import Flask, request, render_template, redirect, abort, jsonify
-
+from flask import Flask, request, render_template, redirect, abort
+from werkzeug import secure_filename
 
 # import all of mongoengine
-from mongoengine import *
+from flask.ext.mongoengine import mongoengine
 
 # import data models
 import models
 
-# Python Image Library
+# Amazon AWS library
+import boto
 
 
 
@@ -26,7 +22,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 megabyte file upload
 
 # --------- Database Connection ---------
 # MongoDB connection to MongoLab's database
-connect('mydata', host=os.environ.get('MONGOLAB_URI'))
+mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 app.logger.debug("Connecting to MongoLabs")
 
 ALLOWED_EXTENSIONS = set(['wav', 'mp3', 'aac'])
@@ -77,7 +73,7 @@ def index():
 			# did something actually save to S3
 			if k and k.size > 0:
 				
-				submitted_loop = models.Loop()
+				submitted_loop = models.Song()
 				submitted_loop.title = request.form.get('title')
 				submitted_loop.postedby = request.form.get('postedby')
 				submitted_loop.filename = filename # same filename of s3 bucket file
@@ -93,7 +89,7 @@ def index():
 
 	else:
 		# get existing images
-		songs = models.Loop.objects.order_by('-timestamp')
+		songs = models.Song.objects.order_by('-timestamp')
 		
 		# render the template
 		templateData = {
@@ -106,7 +102,7 @@ def index():
 @app.route('/delete/<loopid>')
 def delete_image(loopid):
 	
-	song = models.Loop.objects.get(id=loopid)
+	song = models.Song.objects.get(id=loopid)
 	if song:
 
 		# delete from s3
