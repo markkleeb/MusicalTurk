@@ -12,8 +12,7 @@ import models
 # Amazon AWS library
 import boto
 
-# Python Image Library
-import StringIO
+
 
 
 app = Flask(__name__)   # create our flask app
