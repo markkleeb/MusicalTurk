@@ -76,7 +76,6 @@ background-color: #000000;
             color: black;
             font-size: 20px;
             font-family: impact;
-            text-align: center;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 20px;
@@ -154,10 +153,7 @@ background-color: #000000;
 }
 
 
-#frame img{
 
-      text-align:center;
-}
 
 #frame h1, #frame h2{
 
@@ -173,18 +169,8 @@ margin: 10px;
 
 }
 
-#galleria{
 
-      text-align: center;
-
-}
       
-#banner{
-
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-}
 
       
 

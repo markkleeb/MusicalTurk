@@ -9,7 +9,7 @@ img {
 
 {% endblock %}
 {% block body %}
-
+	<div class="frame">
 	<div class="row">
 		<div class="span5">
 		    {% if form.errors %}
@@ -24,7 +24,8 @@ img {
 		    </ul>
 		    {% endif %}
 
-		    <h2>Upload a loop (mp3 or wav only)</h2>
+		    <h2>Upload a loop</h2>
+		    <p>mp3 or wav file</p>
 		   
 			<form method="POST" enctype="multipart/form-data">
 				
@@ -42,6 +43,7 @@ img {
 
 			</form>
 		</div>
+
 
 		<div class="span7">
 			<h2>Submitted Loops</h2>
@@ -61,6 +63,7 @@ img {
 		</div>
 
 	</div><!-- row -->
+</div>
 
 {% endblock %}
 
