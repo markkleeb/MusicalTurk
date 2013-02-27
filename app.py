@@ -102,7 +102,7 @@ def index():
 @app.route('/delete/<songid>')
 def delete_image(songid):
 	
-	song = models.Song.objects.get(id=loopid)
+	song = models.Song.objects.get(id=songid)
 	if song:
 
 		# delete from s3
