@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask.ext.mongoengine.wtf import model_form
-from wtforms.fields import * # for our custom signup form
-from flask.ext.mongoengine.wtf.orm import validators
-from flask.ext.mongoengine import *
+from mongoengine import *
 from datetime import datetime
 
 
