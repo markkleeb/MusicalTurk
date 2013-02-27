@@ -99,8 +99,8 @@ def index():
 
 		return render_template("main.html", **templateData)
 
-@app.route('/delete/<loopid>')
-def delete_image(loopid):
+@app.route('/delete/<songid>')
+def delete_image(songid):
 	
 	song = models.Song.objects.get(id=loopid)
 	if song:
@@ -114,7 +114,7 @@ def delete_image(loopid):
 		# set the mimetype, content and access control
 		bucket = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) # bucket name defined in .env
 		k = bucket.new_key(bucket)
-		k.key = image.filename
+		k.key = song.filename
 		bucket.delete_key(k)
 
 		# delete from Mongo	
