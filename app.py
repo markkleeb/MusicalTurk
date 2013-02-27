@@ -99,6 +99,14 @@ def index():
 
 		return render_template("main.html", **templateData)
 
+
+@app.route("/about")
+def about():
+
+	
+
+	return render_template("about.html")
+
 @app.route('/delete/<songid>')
 def delete_image(songid):
 	
