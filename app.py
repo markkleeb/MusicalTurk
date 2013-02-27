@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
+
 import os, datetime, re
-from flask import Flask, request, render_template, redirect, abort
-from werkzeug import secure_filename
+import requests
+import boto
+from unidecode import unidecode
+
+from flask import Flask, request, render_template, redirect, abort, jsonify
+
 
 # import all of mongoengine
-from flask.ext.mongoengine import mongoengine
+from mongoengine import *
 
 # import data models
 import models
 
-# Amazon AWS library
-import boto
+# Python Image Library
 
 
 
@@ -22,7 +26,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 megabyte file upload
 
 # --------- Database Connection ---------
 # MongoDB connection to MongoLab's database
-mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
+connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 app.logger.debug("Connecting to MongoLabs")
 
 ALLOWED_EXTENSIONS = set(['wav', 'mp3', 'aac'])
