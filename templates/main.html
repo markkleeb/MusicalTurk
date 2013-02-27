@@ -25,7 +25,7 @@ img {
 		    {% endif %}
 
 		    <h2>Upload a loop</h2>
-		    <p>Behave.</p>
+		   
 			<form method="POST" enctype="multipart/form-data">
 				
 				{{ form.title.label }}
@@ -51,8 +51,9 @@ img {
 				<h3>{{ song.title }}</h3>
 					<br>
 					{{ song.postedby }} - {{ song.timestamp.strftime("%m/%d/%y")}}
+					<div class="row">
 					<audio src="https://s3.amazonaws.com/megaphonosizer/{{ song.filename }}" preload="auto" />
-
+					</div>
 				</p>
 				<a href="/delete/{{ song.id }}" class="btn btn-small btn-danger">delete</a>
 				<hr>

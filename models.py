@@ -11,7 +11,7 @@ class Song(mongoengine.Document):
 	title = mongoengine.StringField(max_length=120, required=True)
 	postedby = mongoengine.StringField(max_length=120, required=True, verbose_name="Your name")
 	
-	#tags = mongoengine.ListField( StringField())
+	tags = mongoengine.ListField( mongoengine.StringField())
 
 	filename = mongoengine.StringField()
 
