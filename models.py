@@ -3,19 +3,19 @@ from mongoengine import *
 from datetime import datetime
 
 
-class Loop(mongoengine.Document):
+class Loop(Document):
 
-	title = mongoengine.StringField(max_length=120, required=True)
-	postedby = mongoengine.StringField(max_length=120, required=True, verbose_name="Your name")
+	title = StringField(max_length=120, required=True)
+	postedby = StringField(max_length=120, required=True, verbose_name="Your name")
 	
-	tags = mongoengine.ListField( mongoengine.StringField())
+	tags = ListField( StringField())
 
-	filename = mongoengine.StringField()
+	filename = StringField()
 
 	# Comments is a list of Document type 'Comments' defined above
 
 	# Timestamp will record the date and time idea was created.
-	timestamp = mongoengine.DateTimeField(default=datetime.now())
+	timestamp = DateTimeField(default=datetime.now())
 
 
 song_form = model_form(Loop)
