@@ -108,6 +108,11 @@ background-color: #000000;
       
 }
 
+form{
+
+	font-family:helvetica;
+}
+
       h1{
       font-family: impact;
       font-size: 50px;
