@@ -90,7 +90,7 @@ def loops():
 				submitted_loop.save()
 
 
-			return redirect('/')
+			return redirect('/loops')
 
 		else:
 			return "uhoh there was an error " + uploaded_file.filename
@@ -161,7 +161,7 @@ def beats():
 				submitted_loop.save()
 
 
-			return redirect('/')
+			return redirect('/beats')
 
 		else:
 			return "uhoh there was an error " + uploaded_file.filename
@@ -232,7 +232,7 @@ def atmosphere():
 				submitted_loop.save()
 
 
-			return redirect('/')
+			return redirect('/atmosphere')
 
 		else:
 			return "uhoh there was an error " + uploaded_file.filename
