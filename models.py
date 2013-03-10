@@ -8,8 +8,8 @@ from datetime import datetime
 
 class Song(mongoengine.Document):
 
-	title = mongoengine.StringField(max_length=120, required=True, verbose_name="Type of loop (Rhythm, Melody, Ambiant)")
-	postedby = mongoengine.StringField(max_length=120, required=True, verbose_name="Your name")
+	title = mongoengine.StringField(max_length=120, required=True, verbose_name="Title")
+	postedby = mongoengine.StringField(max_length=120, required=True, verbose_name="Your Name")
 	
 
 	filename = mongoengine.StringField()
