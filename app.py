@@ -241,7 +241,7 @@ def atmosphere():
 
 	else:
 		# get existing images
-		songs = models.Song.objects(tag='loops').order_by('-timestamp')
+		songs = models.Song.objects(tag='atmosphere').order_by('-timestamp')
 		
 		# render the template
 		templateData = {
