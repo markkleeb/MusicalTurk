@@ -1,0 +1,96 @@
+{% extends "layout/main.html" %}
+
+{% block styles %}
+<style>
+img {
+	width:320px;
+}
+</style>
+
+{% endblock %}
+{% block body %}
+	<div class="frame">
+	<div class="row-fluid">
+		
+		<div class="span5">
+		    {% if form.errors %}
+		    <ul class="errors">
+		        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+		            {% for error in field_errors %}
+		                <li class="alert alert-error">
+		                	{{ form[field_name].label.text }} - {{ error }}
+		               	</li>
+		            {% endfor %}
+		        {% endfor %}
+		    </ul>
+		    {% endif %}
+
+		    <h2>Atmosphere</h2>
+		    <ul>
+		    <li>Field Recordings</li>
+		    <li>Ambiance</li>
+		    <li>Non-melodic or arhythmic patterns</li>
+		    <li>30 to 60 seconds</li>
+		    <li>mp3 or wav format</li>
+		    </ul>
+		   
+
+		
+		   
+			<form method="POST" enctype="multipart/form-data">
+				
+				{{ form.title.label }}
+				{{ form.title }}
+
+				{{ form.postedby.label }}
+				{{ form.postedby }}
+				<br>
+				{{ form.fileupload.label }}
+				{{ form.fileupload }}
+				<br><br>
+				<input class="btn btn-success" type="submit" value="upload">
+
+
+			</form>
+		</div>
+		<div class="span4 offset1">
+			<h2>Submitted Loops</h2>
+			<hr>
+			{% for song in songs %}
+				
+				<h3>{{ song.title }}</h3>
+					<br>
+					{{ song.postedby }} - {{ song.timestamp.strftime("%m/%d/%y")}}
+					<div class="row">
+					<audio src="https://s3.amazonaws.com/megaphonosizer/{{ song.filename }}" preload="auto" />
+					</div>
+				</p>
+				<!--<a href="/delete/{{ song.id }}" class="btn btn-small btn-danger">delete</a>-->
+				<hr>
+			{% endfor %}
+		</div>
+
+
+		<div class="span4">
+		    {% if form.errors %}
+		    <ul class="errors">
+		        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+		            {% for error in field_errors %}
+		                <li class="alert alert-error">
+		                	{{ form[field_name].label.text }} - {{ error }}
+		               	</li>
+		            {% endfor %}
+		        {% endfor %}
+		    </ul>
+		    {% endif %}
+
+		    
+
+
+
+	</div><!-- row -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}

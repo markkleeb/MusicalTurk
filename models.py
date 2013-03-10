@@ -11,13 +11,13 @@ class Song(mongoengine.Document):
 	title = mongoengine.StringField(max_length=120, required=True, verbose_name="Type of loop (Rhythm, Melody, Ambiant)")
 	postedby = mongoengine.StringField(max_length=120, required=True, verbose_name="Your name")
 	
-	tags = mongoengine.ListField(mongoengine.StringField())
 
 	filename = mongoengine.StringField()
 
 	# Timestamp will record the date and time idea was created.
 	timestamp = mongoengine.DateTimeField(default=datetime.now())
 
+	tag = mongoengine.StringField()
 
 song_form = model_form(Song)
 

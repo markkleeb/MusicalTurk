@@ -31,7 +31,18 @@ background-color: #000000;
       
 }
 
+ul{
 
+   padding-left: 100px;
+   font-family: helvetica;
+
+}
+
+li{
+
+   padding: none;
+   text-align: left;
+}
 
  a:link,
  a:visited,
