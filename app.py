@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, datetime, re
-from flask import Flask, request, render_template, redirect, abort
+from flask import Flask, request, render_template, redirect, abort, jsonify
 from werkzeug import secure_filename
 
 # import all of mongoengine
@@ -8,6 +8,7 @@ from flask.ext.mongoengine import mongoengine
 
 # import data models
 import models
+
 
 # Amazon AWS library
 import boto
@@ -283,6 +284,52 @@ def delete_image(songid):
 
 	else:
 		return "Unable to find requested image in database."
+
+
+
+@app.route('/data/loops')
+def data_loops():
+
+	# query for the ideas - return oldest first, limit 10
+	loops = models.Song.objects().order_by('-timestamp')
+
+	if loops:
+
+		# list to hold ideas
+		public_loops = []
+
+		#prep data for json
+		for n in loops:
+
+			tmpLoop = {
+				'path' : n.filename,
+				'title' : n.title,
+				'name' : n.postedby,
+				'tag' : n.tag,
+				'timestamp' : str( n.timestamp )
+				
+			}
+
+
+			# insert idea dictionary into public_ideas list
+			public_loops.append( tmpLoop )
+
+		# prepare dictionary for JSON return
+		data = {
+			'status' : 'OK',
+			'loops' : public_loops
+		}
+
+		# jsonify (imported from Flask above)
+		# will convert 'data' dictionary and set mime type to 'application/json'
+		return jsonify(data)
+
+	else:
+		error = {
+			'status' : 'error',
+			'msg' : 'unable to retrieve ideas'
+		}
+		return jsonify(error)
 
 @app.errorhandler(404)
 def page_not_found(error):
