@@ -324,46 +324,51 @@ def hits():
 		return render_template("hits.html", **templateData)
 
 
-# @app.route("/loops/add", methods=["POST"])
-# def newloop():
+@app.route("/loops/add", methods=["POST"])
+def newloop():
 
-# 	#app.logger.debug("JSON received...")
-# 	#app.logger.debug(request.form)
+	#app.logger.debug("JSON received...")
+	#app.logger.debug(request.form)
 
 	
-# 	if request.form:
-# 		data = request.form
+	if request.form:
+		data = request.form
 
-# 		loop = models.Song()
-# 		loop.title = data.get("title")  
-# 		loop.postedby = data.get("postedby")
-# 		loop.tag = 'live'  #slugify(photo.img)
+		now = datetime.datetime.now()
+		filename = now.strftime('%Y%m%d%H%M%s') + "-" + secure_filename(request.files["loop"].filename)
+
+		loop = models.Song()
+		loop.title = data.get("title")  
+		loop.postedby = data.get("postedby")
+		loop.filename = filename
+		loop.tag = 'live'  #slugify(photo.img)
+
+		#app.logger.debug(loop.title)
+
+		if request.files["loop"]:# and allowed_file(request.files["loop"].filename):
+
+			app.logger.debug(request.files["loop"].mimetype)
+
+			s3conn = boto.connect_s3(os.environ.get('AWS_ACCESS_KEY_ID'),os.environ.get('AWS_SECRET_ACCESS_KEY'))
+
+			b = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) #bucket name defined in .env
+			k = b.new_key(b)
+			k.key =  filename
+			k.set_metadata("Content-Type" , request.files["loop"].mimetype)
+			k.set_contents_from_string(request.files["loop"].stream.read())
+			k.make_public()
 
 
-# 		if request.files["loop"]: #and allowed_file(request.files["img"].filename):
+			if k and k.size > 0:
 
-# 			#app.logger.debug(request.files["img"].mimetype)
-
-# 			s3conn = boto.connect_s3(os.environ.get('AWS_ACCESS_KEY_ID'),os.environ.get('AWS_SECRET_ACCESS_KEY'))
-
-# 			b = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) #bucket name defined in .env
-# 			k = b.new_key(b)
-# 			k.key =  now.strftime('%Y%m%d%H%M%s') + "-" + request.files["loop"].filename +
-# 			k.set_metadata("Content-Type" , uploaded_file.mimetype)
-# 			k.set_contents_from_string(request.files["loop"].stream.read())
-# 			k.make_public()
+				loop.save() 
+				return "Received!" 
 
 
-# 			if k and k.size > 0:
+	else:
 
-# 				loop.save() 
-# 				return "Received %s" %data.get("loop") 
-
-
-# 	else:
-
-# 		return "FAIL : %s" %request.form
-# 	# get form data - create new idea
+		return "FAIL : %s" %request.form
+	# get form data - create new idea
 
 
 @app.route("/about")
