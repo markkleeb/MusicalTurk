@@ -324,46 +324,46 @@ def hits():
 		return render_template("hits.html", **templateData)
 
 
-@app.route("/loops/add", methods=["POST"])
-def newloop():
+# @app.route("/loops/add", methods=["POST"])
+# def newloop():
 
-	#app.logger.debug("JSON received...")
-	#app.logger.debug(request.form)
+# 	#app.logger.debug("JSON received...")
+# 	#app.logger.debug(request.form)
 
 	
-	if request.form:
-		data = request.form
+# 	if request.form:
+# 		data = request.form
 
-		loop = models.Song()
-		loop.title = data.get("title")  
-		loop.postedby = data.get("postedby")
-		loop.tag = 'live'  #slugify(photo.img)
-
-
-		if request.files["loop"]: #and allowed_file(request.files["img"].filename):
-
-			#app.logger.debug(request.files["img"].mimetype)
-
-			s3conn = boto.connect_s3(os.environ.get('AWS_ACCESS_KEY_ID'),os.environ.get('AWS_SECRET_ACCESS_KEY'))
-
-			b = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) #bucket name defined in .env
-			k = b.new_key(b)
-			k.key =  now.strftime('%Y%m%d%H%M%s') + "-" + request.files["loop"].filename +
-			k.set_metadata("Content-Type" , uploaded_file.mimetype)
-			k.set_contents_from_string(request.files["loop"].stream.read())
-			k.make_public()
+# 		loop = models.Song()
+# 		loop.title = data.get("title")  
+# 		loop.postedby = data.get("postedby")
+# 		loop.tag = 'live'  #slugify(photo.img)
 
 
-			if k and k.size > 0:
+# 		if request.files["loop"]: #and allowed_file(request.files["img"].filename):
 
-				loop.save() 
-				return "Received %s" %data.get("loop") 
+# 			#app.logger.debug(request.files["img"].mimetype)
+
+# 			s3conn = boto.connect_s3(os.environ.get('AWS_ACCESS_KEY_ID'),os.environ.get('AWS_SECRET_ACCESS_KEY'))
+
+# 			b = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) #bucket name defined in .env
+# 			k = b.new_key(b)
+# 			k.key =  now.strftime('%Y%m%d%H%M%s') + "-" + request.files["loop"].filename +
+# 			k.set_metadata("Content-Type" , uploaded_file.mimetype)
+# 			k.set_contents_from_string(request.files["loop"].stream.read())
+# 			k.make_public()
 
 
-	else:
+# 			if k and k.size > 0:
 
-		return "FAIL : %s" %request.form
-	# get form data - create new idea
+# 				loop.save() 
+# 				return "Received %s" %data.get("loop") 
+
+
+# 	else:
+
+# 		return "FAIL : %s" %request.form
+# 	# get form data - create new idea
 
 
 @app.route("/about")
