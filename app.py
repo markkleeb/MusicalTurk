@@ -324,7 +324,7 @@ def hits():
 		return render_template("hits.html", **templateData)
 
 
-@app.route("/loops/add", methods=["POST"])
+@app.route("/loops/add", methods=["POST","PUT"])
 def newloop():
 
 	#app.logger.debug("JSON received...")
