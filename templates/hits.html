@@ -48,9 +48,7 @@
 			
 			{% for song in songs %}
 				
-				<h3>{{ song.title }}</h3>
-					<br>
-					{{ song.postedby }} - {{ song.timestamp.strftime("%m/%d/%y")}}
+					{{ song.postedby }} - {{ song.title }} - {{ song.timestamp.strftime("%m/%d/%y")}}
 					<div class="row">
 					<audio src="https://s3.amazonaws.com/megaphonosizer/{{ song.filename }}" preload="auto" />
 					</div>
