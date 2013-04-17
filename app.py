@@ -486,7 +486,7 @@ def delete_image(live):
 def data_loops():
 
 	# query for the ideas - return oldest first, limit 10
-	loops = models.Song.objects().order_by('timestamp')
+	loops = models.Song.objects().order_by('-timestamp')
 
 	if loops:
 
