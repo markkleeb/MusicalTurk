@@ -17,7 +17,7 @@ class Song(mongoengine.Document):
 	# Timestamp will record the date and time idea was created.
 	timestamp = mongoengine.DateTimeField(default=datetime.now())
 
-	tag = mongoengine.StringField()
+	tag = mongoengine.StringField(required=True)
 
 song_form = model_form(Song)
 

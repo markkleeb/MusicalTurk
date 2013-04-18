@@ -385,7 +385,7 @@ def upload():
 
 	else:
 		# get existing images
-		songs = models.Song.objects.order_by('timestamp')
+		songs = models.Song.objects.order_by('-timestamp')
 		
 		# render the template
 		templateData = {
@@ -454,26 +454,26 @@ def about():
 def delete_image(live):
 	
 	
-	song = models.Song.objects(tag=live)
+	songs = models.Song.objects(tag=live)
 	
 
+	for song in songs:
+		if song:
 
-	if song:
+			# delete from s3
+		
+			# connect to s3
+			s3conn = boto.connect_s3(os.environ.get('AWS_ACCESS_KEY_ID'),os.environ.get('AWS_SECRET_ACCESS_KEY'))
 
-		# delete from s3
-	
-		# connect to s3
-		s3conn = boto.connect_s3(os.environ.get('AWS_ACCESS_KEY_ID'),os.environ.get('AWS_SECRET_ACCESS_KEY'))
+			# open s3 bucket, create new Key/file
+			# set the mimetype, content and access control
+			bucket = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) # bucket name defined in .env
+			k = bucket.new_key(bucket)
+			k.key = song.filename
+			bucket.delete_key(k)
 
-		# open s3 bucket, create new Key/file
-		# set the mimetype, content and access control
-		bucket = s3conn.get_bucket(os.environ.get('AWS_BUCKET')) # bucket name defined in .env
-		k = bucket.new_key(bucket)
-		k.key = song.filename
-		bucket.delete_key(k)
-
-		# delete from Mongo	
-		song.delete()
+			# delete from Mongo	
+			song.delete()
 
 		return redirect('/')
 

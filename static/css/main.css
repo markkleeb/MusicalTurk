@@ -15,6 +15,7 @@ text-align: center;
 /*background: url('https://s3.amazonaws.com/kleebtronics-media/img/megayes/glitch-background2.jpg');
 */
 background-color: #000000;
+position:relative;
 
 }
 
@@ -198,15 +199,107 @@ span.label a {
 }
 
 
+.download{
+
+padding: 3px;
+background-color: #4E4848;
+display: block;
+border-radius: 10px;
+
+
+}
+
+
+
+.live{
+
+   padding:3px;
+   background-color: #FF0000;
+   display: block;
+   border-radius: 10px;
+   border: 3px;
+   margin: 5px;
+}
+
+.loops{
+
+   padding:3px;
+   background-color: #00FF00;
+   display: block;
+   border-radius: 10px;
+   border: 3px;
+   margin: 5px;
+}
+
+.beats{
+
+   padding:3px;
+   background-color: #0000FF;
+   display: block;
+   border-radius: 10px;
+   border: 3px;
+   margin: 5px;
+}
+
+.atmosphere{
+
+   padding:3px;
+   background-color: #00F0F0;
+   display: block;
+   border-radius: 10px;
+   border: 3px;
+   margin: 5px;
+}
+
+
+.hits{
+
+   padding:3px;
+   background-color: #F000F0;
+   display: block;
+   border-radius: 10px;
+   border: 3px;
+   margin: 5px;
+}
+
+.hidden{
+
+background-color:#4E4848;
+display:none;
+width:200px;
+position:relative;
+border-radius: 10px;
+padding: 10px;
+
+
+}
+
+.hidden li{
+
+text-align: left;
+
+}
 
 
 
 
+.mousetext{
 
+   font-size: 14px;
+   text-decoration: underline;
+   display:inline;
+   padding-left: 5px;
+}
 
+.entry{
 
+   margin-top: 20px;
+   padding: 10px;
+   border-top: 1px white;
+   border-style: solid;
+   border-bottom: none;
+   border-left: none;
+   border-right: none;
 
-
-
-
+}
 
