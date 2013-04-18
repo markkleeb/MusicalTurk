@@ -475,10 +475,10 @@ def delete_image(live):
 			# delete from Mongo	
 			song.delete()
 
-		return redirect('/')
+		
 
 	else:
-		return "Unable to find requested image in database."
+		return redirect('/upload')
 
 
 
