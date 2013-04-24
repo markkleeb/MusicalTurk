@@ -1,64 +1,61 @@
 {% extends "layout/main.html" %}
 
 
+
+
 {% block body %}
-	<div class="frame">
-	<div class="row-fluid">
-		
-		<div class="span5">
-		    {% if form.errors %}
-		    <ul class="errors">
-		        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
-		            {% for error in field_errors %}
-		                <li class="alert alert-error">
-		                	{{ form[field_name].label.text }} - {{ error }}
-		               	</li>
-		            {% endfor %}
-		        {% endfor %}
-		    </ul>
-		    {% endif %}
-
-		    <h2>Beats</h2>
-		   <ul>
-		   <li>Percussive loops</li>
-		   <li>120 Beats Per Minute</li>
-		   <li>10-30 Seconds</li>
-		   <li>mp3 or wav format</li>
 
 
-		   </ul>
+                
 
-			
-		   
-			<form method="POST" enctype="multipart/form-data">
+   
+<br/>
+<br/>
+<div class="row">
+
 				
-				{{ form.title.label }}
-				{{ form.title }}
+				<div class="span1 offset1 mousetext"><a href="/loops">Loops</a></div>
+				<div class="span1 offset1 mousetext selected"><a href="/beats">Beats</a></div>
+				<div class="span1 offset1 mousetext"><a href="/atmosphere">Ambiance</a></div>
+				<div class="span1 offset1 mousetext"><a href="/hits">Hits</a></div>
+				<div class="span1 offset1 mousetext"><a href="/songs">All</a></div>
 
-				{{ form.postedby.label }}
-				{{ form.postedby }}
-				<br>
-				{{ form.fileupload.label }}
-				{{ form.fileupload }}
-				<br><br>
-				<input class="btn btn-success" type="submit" value="upload">
-
-
-			</form>
-		</div>
-		<div class="span4 offset1">
+</div>
+	<br />
+	<br />
+	
+	
+	<div class="span10 offset1">
 			
 			{% for song in songs %}
-				
-					{{ song.postedby }} - {{ song.title }} - {{ song.timestamp.strftime("%m/%d/%y")}}
+			<div class="entry">
+				<div class="row">
+				<div class="span 6 offset2">
+					{{ song.postedby }} - {{ song.title }}  
+					</div>
+				</div>
 					<div class="row">
+					<div class="span4">
 					<audio src="https://s3.amazonaws.com/megaphonosizer/{{ song.filename }}" preload="auto" />
 					</div>
-				</p>
+					<div class="span4">
+						<div class="row">
+							<div class="span2 offset2">
+					</div>
+					</div>
+						<div class="row">
+						<div class="span2 offset2">
+						<a class="btn btn-large btn-primary download" href="https://s3.amazonaws.com/megaphonosizer/{{ song.filename }}">download</a>
+						</div>
+					</div>
+					</div>
+				</div>
+				</div>
 				<!--<a href="/delete/{{ song.id }}" class="btn btn-small btn-danger">delete</a>-->
-				<hr>
+				
 			{% endfor %}
-		</div>
+	</div>
+	</div>
 
 
 		<div class="span4">
@@ -80,6 +77,55 @@
 
 	</div><!-- row -->
 </div>
+
+
+				<div class="hidden"> 
+		   		<li>Key of C Major or A Minor</li>
+		   		<li>120 Beats Per Minute</li>
+		   		<li>10-30 seconds</li>
+		   		<li>mp3 or wav format</li>
+				</div>
+
+				<div class="hidden"> 
+			
+		   		<li>Percussive loops</li>
+		   		<li>120 Beats Per Minute</li>
+		   		<li>10-30 Seconds</li>
+		   		<li>mp3 or wav format</li>
+				
+				</div>
+
+				<div class="hidden">
+		
+		    	<li>Field Recordings</li>
+		    	<li>Non-melodic or arhythmic patterns</li>
+		    	<li>30 to 60 seconds</li>
+		    	<li>mp3 or wav format</li>
+		   
+		    	</div>
+
+		    	<div class="hidden">
+	
+		    	<li>Short percussive hits</li>
+		    	<li>1-3 seconds</li>
+		    	<li>mp3 or wav format</li>
+		  
+		    	</div>
+
+
+<script>
+
+$(document).mousemove(function(e){
+$('.mousetext').on('mouseover', function(){
+	var tagIndex = $('.mousetext').index(this)
+console.log(tagIndex)
+$('.hidden').eq(tagIndex).show().css({position: 'absolute', top: e.pageY, left : e.pageX+10 })
+}).on('mouseout', function(){
+	var tagIndex = $('.mousetext').index(this)
+$('.hidden').eq(tagIndex).hide()
+})
+})
+</script>
 
 {% endblock %}
 
